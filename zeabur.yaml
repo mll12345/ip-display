@@ -1,0 +1,12 @@
+version: 1
+services:
+  - type: web
+    name: ip-display
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt && pip install gunicorn
+    startCommand: gunicorn -w 2 -b 0.0.0.0:5000 server:app
+    envVars:
+      - key: PORT
+        value: 5000
+    region: hkg
