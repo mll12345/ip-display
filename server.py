@@ -71,11 +71,12 @@ def get_client_ip():
     except Exception as e:
         print(f"获取地址信息异常: {e}")
     
-    # 调用 ip-api.com API 获取IP详细信息
+    # 调用高德地图API获取IP详细信息
     location_info = None
     try:
-        ipapi_url = f"http://ip-api.com/json/{ip}?lang=zh-CN"
-        response = requests.get(ipapi_url, timeout=5)
+        amap_key = "653daeebf8f323e0b35bb6e00f85f6f9"
+        amap_url = f"https://restapi.amap.com/v3/ip?key={amap_key}&ip={ip}"
+        response = requests.get(amap_url, timeout=5)
         
         if response.status_code == 200:
             location_info = response.json()

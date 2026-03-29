@@ -289,20 +289,26 @@
                 const data = await response.json();
                 
                 if (data.success) {
-                    // 显示地理位置信息
-                    if (data.location && data.location.status === 'success') {
+                    // 显示地理位置信息（高德地图API格式）
+                    if (data.location && data.location.status === '1') {
                         const loc = data.location;
                         let locationHtml = '<div class="location-item">';
                         
                         // 组合显示位置信息
                         const parts = [];
-                        if (loc.country) parts.push(loc.country);
-                        if (loc.regionName) parts.push(loc.regionName);
+                        if (loc.province) parts.push(loc.province);
                         if (loc.city) parts.push(loc.city);
-                        if (loc.isp) parts.push(loc.isp);
                         
                         locationHtml += parts.join(' | ');
                         locationHtml += '</div>';
+                        
+                        // 显示rectangle经纬度范围
+                        if (loc.rectangle) {
+                            locationHtml += '<div class="location-item" style="font-size: 14px; color: rgba(112, 240, 192, 0.8);">';
+                            locationHtml += `区域范围: ${loc.rectangle}`;
+                            locationHtml += '</div>';
+                        }
+                        
                         locationInfo.innerHTML = locationHtml;
                     } else {
                         // 如果无法获取位置信息，显示IP地址
