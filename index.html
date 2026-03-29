@@ -187,7 +187,7 @@
         }
 
         .map-container {
-            margin-top: 24px;
+            margin: 32px 0;
             border-radius: 12px;
             overflow: hidden;
             border: 2px solid rgba(112, 240, 192, 0.4);
@@ -271,13 +271,14 @@
         
         <h1>你已急哭</h1>
         
+        <div class="map-container" id="mapContainer">
+            <img id="mapImage" class="map-image" alt="位置地图">
+        </div>
+        
         <div class="ip-display">
             <div class="ip-value" id="ipValue"></div>
             <div class="location-info" id="locationInfo">
                 <span class="ip-loading">正在获取位置信息...</span>
-            </div>
-            <div class="map-container" id="mapContainer">
-                <img id="mapImage" class="map-image" alt="位置地图">
             </div>
         </div>
         
