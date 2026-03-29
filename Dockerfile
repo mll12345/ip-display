@@ -14,10 +14,10 @@ RUN pip install --no-cache-dir -r requirements.txt && \
 COPY . .
 
 # 暴露端口
-EXPOSE 5000
+EXPOSE 80
 
 # 设置环境变量
 ENV PYTHONUNBUFFERED=1
 
 # 启动命令
-CMD ["gunicorn", "-w", "2", "-b", "0.0.0.0:5000", "server:app"]
+CMD ["gunicorn", "-w", "2", "-b", "0.0.0.0:80", "server:app"]
