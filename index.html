@@ -141,7 +141,7 @@
         .ip-display {
             background: rgba(26, 42, 74, 0.6);
             border-radius: 16px;
-            padding: 24px 32px;
+            padding: 32px 48px;
             margin: 32px 0;
             transition: all 0.3s ease;
             border: 2px solid rgba(112, 240, 192, 0.5);
@@ -171,11 +171,12 @@
             transition: all 0.3s ease;
             font-family: 'Courier New', monospace;
             margin-bottom: 12px;
+            display: none;
         }
 
         .location-info {
-            font-size: 18px;
-            color: rgba(255, 255, 255, 0.9);
+            font-size: 24px;
+            color: rgba(255, 255, 255, 0.95);
             margin-top: 8px;
             letter-spacing: 1px;
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
@@ -256,10 +257,10 @@
         <h1>你已急哭</h1>
         
         <div class="ip-display">
-            <div class="ip-value" id="ipValue">
-                <span class="ip-loading">正在获取...</span>
+            <div class="ip-value" id="ipValue"></div>
+            <div class="location-info" id="locationInfo">
+                <span class="ip-loading">正在获取位置信息...</span>
             </div>
-            <div class="location-info" id="locationInfo"></div>
         </div>
         
         <button class="refresh-btn" onclick="fetchIP()">刷新</button>
