@@ -6,6 +6,14 @@
     <title>你已急哭</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --space-bg: #0a0a1a;
+            --alien-skin: #70f0c0;
+            --energy-core: #ffd700;
+            --nebula: #1a2a4a;
+            --text: #ffffff;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -18,78 +26,154 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: url('bg.jpg') center center / cover no-repeat fixed;
             padding: 20px;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, rgba(112, 240, 192, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 1;
         }
 
         .container {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(10, 10, 26, 0.85);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-radius: 24px;
+            border-radius: 20px;
             padding: 48px 64px;
             box-shadow: 
-                0 8px 32px rgba(0, 0, 0, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+                0 0 40px rgba(112, 240, 192, 0.3),
+                0 0 80px rgba(255, 215, 0, 0.2),
+                inset 0 1px 0 rgba(112, 240, 192, 0.3);
             text-align: center;
             max-width: 600px;
             width: 100%;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(112, 240, 192, 0.4);
+            position: relative;
+            z-index: 2;
+            animation: containerGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes containerGlow {
+            0% {
+                box-shadow: 
+                    0 0 40px rgba(112, 240, 192, 0.3),
+                    0 0 80px rgba(255, 215, 0, 0.2),
+                    inset 0 1px 0 rgba(112, 240, 192, 0.3);
+            }
+            100% {
+                box-shadow: 
+                    0 0 50px rgba(112, 240, 192, 0.4),
+                    0 0 100px rgba(255, 215, 0, 0.3),
+                    inset 0 1px 0 rgba(112, 240, 192, 0.4);
+            }
         }
 
         .icon {
-            width: 80px;
-            height: 80px;
+            width: 90px;
+            height: 90px;
             margin: 0 auto 32px;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1));
-            border-radius: 20px;
+            background: radial-gradient(circle, rgba(112, 240, 192, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 30px rgba(112, 240, 192, 0.5);
+            animation: iconPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes iconPulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 30px rgba(112, 240, 192, 0.5);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 40px rgba(255, 215, 0, 0.6);
+            }
         }
 
         .icon svg {
-            width: 44px;
-            height: 44px;
-            fill: rgba(255, 255, 255, 0.95);
+            width: 50px;
+            height: 50px;
+            fill: var(--alien-skin);
+            filter: drop-shadow(0 0 10px rgba(112, 240, 192, 0.8));
         }
 
         h1 {
-            color: rgba(255, 255, 255, 0.95);
-            font-size: 28px;
-            font-weight: 600;
-            margin-bottom: 16px;
-            letter-spacing: -0.5px;
+            color: var(--text);
+            font-size: 36px;
+            font-weight: 900;
+            margin-bottom: 24px;
+            letter-spacing: 2px;
+            text-shadow: 
+                0 0 20px rgba(255, 215, 0, 0.8),
+                0 0 40px rgba(112, 240, 192, 0.6),
+                2px 2px 4px rgba(0, 0, 0, 0.8);
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+            animation: titleGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            0% {
+                text-shadow: 
+                    0 0 20px rgba(255, 215, 0, 0.8),
+                    0 0 40px rgba(112, 240, 192, 0.6),
+                    2px 2px 4px rgba(0, 0, 0, 0.8);
+            }
+            100% {
+                text-shadow: 
+                    0 0 30px rgba(255, 215, 0, 1),
+                    0 0 60px rgba(112, 240, 192, 0.8),
+                    2px 2px 4px rgba(0, 0, 0, 0.8);
+            }
         }
 
         .ip-display {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(26, 42, 74, 0.6);
             border-radius: 16px;
-            padding: 24px 32px;
-            margin: 32px 0;
+            padding: 28px 36px;
+            margin: 36px 0;
             transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(112, 240, 192, 0.5);
+            box-shadow: 
+                0 0 20px rgba(112, 240, 192, 0.3),
+                inset 0 0 20px rgba(0, 0, 0, 0.3);
         }
 
         .ip-display:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            background: rgba(26, 42, 74, 0.8);
+            transform: translateY(-3px);
+            box-shadow: 
+                0 0 30px rgba(112, 240, 192, 0.5),
+                0 0 60px rgba(255, 215, 0, 0.3),
+                inset 0 0 20px rgba(0, 0, 0, 0.3);
+            border-color: var(--alien-skin);
         }
 
         .ip-value {
-            font-size: 42px;
+            font-size: 48px;
             font-weight: 700;
-            color: #ffffff;
-            letter-spacing: 1px;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            color: var(--alien-skin);
+            letter-spacing: 2px;
+            text-shadow: 
+                0 0 20px rgba(112, 240, 192, 0.8),
+                0 0 40px rgba(112, 240, 192, 0.4);
             transition: all 0.3s ease;
+            font-family: 'Courier New', monospace;
         }
 
         .ip-loading {
             font-size: 20px;
-            color: rgba(255, 255, 255, 0.7);
+            color: var(--text);
             animation: pulse 1.5s ease-in-out infinite;
         }
 
@@ -99,45 +183,53 @@
         }
 
         .info {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 14px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 15px;
             margin-top: 24px;
-            line-height: 1.6;
+            line-height: 1.8;
         }
 
         .info strong {
-            color: rgba(255, 255, 255, 0.95);
+            color: var(--alien-skin);
             font-weight: 600;
+            text-shadow: 0 0 10px rgba(112, 240, 192, 0.6);
         }
 
         .refresh-btn {
-            margin-top: 24px;
-            padding: 12px 32px;
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            margin-top: 28px;
+            padding: 14px 40px;
+            background: linear-gradient(135deg, rgba(112, 240, 192, 0.2), rgba(255, 215, 0, 0.2));
+            border: 2px solid var(--alien-skin);
             border-radius: 12px;
-            color: rgba(255, 255, 255, 0.95);
-            font-size: 14px;
-            font-weight: 500;
+            color: var(--text);
+            font-size: 15px;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             font-family: inherit;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 0 20px rgba(112, 240, 192, 0.3);
         }
 
         .refresh-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            background: linear-gradient(135deg, rgba(112, 240, 192, 0.4), rgba(255, 215, 0, 0.4));
+            transform: translateY(-3px);
+            box-shadow: 
+                0 0 30px rgba(112, 240, 192, 0.6),
+                0 0 60px rgba(255, 215, 0, 0.4);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
         }
 
         .refresh-btn:active {
-            transform: translateY(0);
+            transform: translateY(-1px);
         }
 
         .error {
-            color: rgba(255, 200, 200, 0.95);
+            color: rgba(255, 100, 100, 0.95);
             font-size: 16px;
             margin-top: 16px;
+            text-shadow: 0 0 10px rgba(255, 100, 100, 0.6);
         }
 
         @media (max-width: 640px) {
@@ -150,7 +242,7 @@
             }
 
             h1 {
-                font-size: 24px;
+                font-size: 28px;
             }
         }
     </style>
