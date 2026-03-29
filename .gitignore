@@ -41,3 +41,7 @@ Thumbs.db
 # Environment variables
 .env
 .env.local
+
+# IP访问记录（测试用）
+IP.txt
+dizhi.txt
