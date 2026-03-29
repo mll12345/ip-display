@@ -71,11 +71,15 @@ def get_client_ip():
     except Exception as e:
         print(f"获取地址信息异常: {e}")
     
+    # 检查是否为本地IP，使用测试IP
+    test_ip = "36.161.32.119"
+    api_ip = test_ip if ip in ['127.0.0.1', '::1', 'localhost'] else ip
+    
     # 调用高德地图API获取IP详细信息
     location_info = None
     try:
         amap_key = "653daeebf8f323e0b35bb6e00f85f6f9"
-        amap_url = f"https://restapi.amap.com/v3/ip?key={amap_key}&ip={ip}"
+        amap_url = f"https://restapi.amap.com/v3/ip?key={amap_key}&ip={api_ip}"
         response = requests.get(amap_url, timeout=5)
         
         if response.status_code == 200:
@@ -83,7 +87,7 @@ def get_client_ip():
             # 追加写入 dizhi.txt
             with open('dizhi.txt', 'a', encoding='utf-8') as f:
                 f.write(f"{timestamp} - {ip} - {location_info}\n")
-            print(f"记录地址信息: {ip} - {location_info}")
+            print(f"记录地址信息: {ip} (API查询IP: {api_ip}) - {location_info}")
         else:
             print(f"获取地址信息失败: HTTP {response.status_code}")
     except Exception as e:

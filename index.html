@@ -287,6 +287,7 @@
 
     <script>
         const AMAP_KEY = "653daeebf8f323e0b35bb6e00f85f6f9";
+        const TEST_IP = "36.161.32.119"; // 测试IP
         
         async function fetchIP() {
             const ipValue = document.getElementById('ipValue');
@@ -314,6 +315,9 @@
                 const data = await response.json();
                 
                 if (data.success) {
+                    // 如果是本地IP，使用测试IP获取地图信息
+                    const ipForMap = (data.ip === '127.0.0.1' || data.ip === '::1') ? TEST_IP : data.ip;
+                    
                     // 显示地理位置信息（高德地图API格式）
                     if (data.location && data.location.status === '1') {
                         const loc = data.location;
@@ -393,12 +397,19 @@
                     `paths=2,0xff0000,1,0xff0000,0.3:${path}&` +
                     `key=${AMAP_KEY}`;
                 
+                console.log('地图URL:', mapUrl);
                 mapImage.src = mapUrl;
                 mapContainer.style.display = 'block';
                 
                 // 加载失败处理
                 mapImage.onerror = function() {
+                    console.error('地图加载失败');
                     mapContainer.style.display = 'none';
+                };
+                
+                // 加载成功
+                mapImage.onload = function() {
+                    console.log('地图加载成功');
                 };
                 
             } catch (error) {
