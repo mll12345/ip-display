@@ -50,10 +50,10 @@ def get_client_ip():
     except Exception as e:
         print(f"记录IP失败: {e}")
     
-    # 调用 ip.cn API 获取IP详细信息
+    # 调用 ip-api.com API 获取IP详细信息
     try:
-        ipcn_url = f"https://ip.cn/api/index?ip={ip}"
-        response = requests.get(ipcn_url, timeout=5)
+        ipapi_url = f"http://ip-api.com/json/{ip}?lang=zh-CN"
+        response = requests.get(ipapi_url, timeout=5)
         
         if response.status_code == 200:
             location_info = response.json()
