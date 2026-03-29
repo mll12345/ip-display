@@ -102,7 +102,8 @@ def get_client_ip():
 if __name__ == '__main__':
     # 生产环境建议使用 gunicorn 或 uWSGI
     # 开发环境使用 Flask 内置服务器
+    # 注意：使用80端口需要管理员权限
     print("服务器启动中...")
-    print("访问地址: http://127.0.0.1:5000")
+    print("访问地址: http://127.0.0.1")
     print("按 Ctrl+C 停止服务器")
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=80, debug=True)
