@@ -270,8 +270,8 @@
         async function fetchIP() {
             const ipValue = document.getElementById('ipValue');
             const locationInfo = document.getElementById('locationInfo');
-            ipValue.innerHTML = '<span class="ip-loading">正在获取...</span>';
-            locationInfo.innerHTML = '';
+            ipValue.innerHTML = '';
+            locationInfo.innerHTML = '<span class="ip-loading">正在获取位置信息...</span>';
             
             try {
                 // 从本地服务器API获取IP
@@ -288,10 +288,7 @@
                 
                 const data = await response.json();
                 
-                if (data.success && data.ip) {
-                    ipValue.innerHTML = data.ip;
-                    ipValue.style.color = '#ffffff';
-                    
+                if (data.success) {
                     // 显示地理位置信息
                     if (data.location && data.location.status === 'success') {
                         const loc = data.location;
@@ -307,14 +304,17 @@
                         locationHtml += parts.join(' | ');
                         locationHtml += '</div>';
                         locationInfo.innerHTML = locationHtml;
+                    } else {
+                        // 如果无法获取位置信息，显示IP地址
+                        locationInfo.innerHTML = `<div class="location-item">${data.ip}</div>`;
                     }
                 } else {
                     throw new Error('无法获取IP地址');
                 }
             } catch (error) {
                 console.error('获取IP失败:', error);
-                ipValue.innerHTML = '获取失败';
-                ipValue.style.color = 'rgba(255, 200, 200, 0.95)';
+                locationInfo.innerHTML = '获取失败';
+                locationInfo.style.color = 'rgba(255, 200, 200, 0.95)';
             }
         }
 
