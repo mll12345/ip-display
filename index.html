@@ -79,47 +79,47 @@
         }
 
         .icon {
-            width: 150px;
-            height: 150px;
-            margin: 0 auto 50px;
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 32px;
             background: radial-gradient(circle, rgba(112, 240, 192, 0.3) 0%, transparent 70%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 50px rgba(112, 240, 192, 0.6);
+            box-shadow: 0 0 30px rgba(112, 240, 192, 0.5);
             animation: iconPulse 2s ease-in-out infinite;
         }
 
         @keyframes iconPulse {
             0%, 100% {
                 transform: scale(1);
-                box-shadow: 0 0 50px rgba(112, 240, 192, 0.6);
+                box-shadow: 0 0 30px rgba(112, 240, 192, 0.5);
             }
             50% {
-                transform: scale(1.08);
-                box-shadow: 0 0 70px rgba(255, 215, 0, 0.8);
+                transform: scale(1.05);
+                box-shadow: 0 0 40px rgba(255, 215, 0, 0.6);
             }
         }
 
         .icon svg {
-            width: 85px;
-            height: 85px;
+            width: 50px;
+            height: 50px;
             fill: var(--alien-skin);
-            filter: drop-shadow(0 0 15px rgba(112, 240, 192, 1));
+            filter: drop-shadow(0 0 10px rgba(112, 240, 192, 0.8));
         }
 
         h1 {
             color: var(--text);
-            font-size: 72px;
-            font-weight: 900;
-            margin-bottom: 40px;
-            letter-spacing: 4px;
+            font-size: 36px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            letter-spacing: 2px;
             text-shadow: 
-                0 0 30px rgba(255, 215, 0, 1),
-                0 0 60px rgba(112, 240, 192, 0.8),
-                3px 3px 6px rgba(0, 0, 0, 0.9);
-            -webkit-text-stroke: 2px rgba(255, 255, 255, 0.4);
+                0 0 20px rgba(255, 215, 0, 0.8),
+                0 0 40px rgba(112, 240, 192, 0.6),
+                2px 2px 4px rgba(0, 0, 0, 0.8);
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
             animation: titleGlow 2s ease-in-out infinite alternate;
         }
 
@@ -140,34 +140,34 @@
 
         .ip-display {
             background: rgba(26, 42, 74, 0.6);
-            border-radius: 20px;
-            padding: 40px 50px;
-            margin: 50px 0;
+            border-radius: 16px;
+            padding: 24px 32px;
+            margin: 32px 0;
             transition: all 0.3s ease;
-            border: 3px solid rgba(112, 240, 192, 0.6);
+            border: 2px solid rgba(112, 240, 192, 0.5);
             box-shadow: 
-                0 0 30px rgba(112, 240, 192, 0.4),
-                inset 0 0 30px rgba(0, 0, 0, 0.4);
+                0 0 20px rgba(112, 240, 192, 0.3),
+                inset 0 0 20px rgba(0, 0, 0, 0.3);
         }
 
         .ip-display:hover {
             background: rgba(26, 42, 74, 0.8);
-            transform: translateY(-5px);
+            transform: translateY(-3px);
             box-shadow: 
-                0 0 50px rgba(112, 240, 192, 0.6),
-                0 0 100px rgba(255, 215, 0, 0.4),
-                inset 0 0 30px rgba(0, 0, 0, 0.4);
+                0 0 30px rgba(112, 240, 192, 0.5),
+                0 0 60px rgba(255, 215, 0, 0.3),
+                inset 0 0 20px rgba(0, 0, 0, 0.3);
             border-color: var(--alien-skin);
         }
 
         .ip-value {
-            font-size: 72px;
+            font-size: 48px;
             font-weight: 700;
             color: var(--alien-skin);
-            letter-spacing: 4px;
+            letter-spacing: 1px;
             text-shadow: 
-                0 0 30px rgba(112, 240, 192, 1),
-                0 0 60px rgba(112, 240, 192, 0.6);
+                0 0 20px rgba(112, 240, 192, 0.8),
+                0 0 40px rgba(112, 240, 192, 0.4);
             transition: all 0.3s ease;
             font-family: 'Courier New', monospace;
         }
@@ -184,33 +184,30 @@
         }
 
         .refresh-btn {
-            margin-top: 32px;
-            padding: 14px 40px;
+            margin-top: 24px;
+            padding: 12px 32px;
             background: linear-gradient(135deg, rgba(112, 240, 192, 0.2), rgba(255, 215, 0, 0.2));
             border: 2px solid var(--alien-skin);
             border-radius: 12px;
             color: var(--text);
-            font-size: 15px;
-            font-weight: 600;
+            font-size: 14px;
+            font-weight: 500;
             cursor: pointer;
             transition: all 0.3s ease;
             font-family: inherit;
-            text-transform: uppercase;
-            letter-spacing: 1px;
             box-shadow: 0 0 20px rgba(112, 240, 192, 0.3);
         }
 
         .refresh-btn:hover {
             background: linear-gradient(135deg, rgba(112, 240, 192, 0.4), rgba(255, 215, 0, 0.4));
-            transform: translateY(-5px);
+            transform: translateY(-2px);
             box-shadow: 
-                0 0 50px rgba(112, 240, 192, 0.8),
-                0 0 100px rgba(255, 215, 0, 0.6);
-            text-shadow: 0 0 15px rgba(255, 255, 255, 1);
+                0 0 30px rgba(112, 240, 192, 0.6),
+                0 0 60px rgba(255, 215, 0, 0.4);
         }
 
         .refresh-btn:active {
-            transform: translateY(-2px);
+            transform: translateY(0);
         }
 
         .error {
