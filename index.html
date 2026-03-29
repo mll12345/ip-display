@@ -186,6 +186,21 @@
             margin: 4px 0;
         }
 
+        .map-container {
+            margin-top: 24px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid rgba(112, 240, 192, 0.4);
+            box-shadow: 0 0 20px rgba(112, 240, 192, 0.3);
+            display: none;
+        }
+
+        .map-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
         .ip-loading {
             font-size: 20px;
             color: var(--text);
@@ -261,17 +276,26 @@
             <div class="location-info" id="locationInfo">
                 <span class="ip-loading">正在获取位置信息...</span>
             </div>
+            <div class="map-container" id="mapContainer">
+                <img id="mapImage" class="map-image" alt="位置地图">
+            </div>
         </div>
         
         <button class="refresh-btn" onclick="fetchIP()">刷新</button>
     </div>
 
     <script>
+        const AMAP_KEY = "653daeebf8f323e0b35bb6e00f85f6f9";
+        
         async function fetchIP() {
             const ipValue = document.getElementById('ipValue');
             const locationInfo = document.getElementById('locationInfo');
+            const mapContainer = document.getElementById('mapContainer');
+            const mapImage = document.getElementById('mapImage');
+            
             ipValue.innerHTML = '';
             locationInfo.innerHTML = '<span class="ip-loading">正在获取位置信息...</span>';
+            mapContainer.style.display = 'none';
             
             try {
                 // 从本地服务器API获取IP
@@ -307,6 +331,9 @@
                             locationHtml += '<div class="location-item" style="font-size: 14px; color: rgba(112, 240, 192, 0.8);">';
                             locationHtml += `区域范围: ${loc.rectangle}`;
                             locationHtml += '</div>';
+                            
+                            // 加载地图
+                            loadMap(loc.rectangle, loc.city);
                         }
                         
                         locationInfo.innerHTML = locationHtml;
@@ -321,6 +348,61 @@
                 console.error('获取IP失败:', error);
                 locationInfo.innerHTML = '获取失败';
                 locationInfo.style.color = 'rgba(255, 200, 200, 0.95)';
+            }
+        }
+
+        function loadMap(rectangle, cityName) {
+            const mapContainer = document.getElementById('mapContainer');
+            const mapImage = document.getElementById('mapImage');
+            
+            try {
+                // 解析rectangle：最小经度,最小纬度;最大经度,最大纬度
+                const [minPart, maxPart] = rectangle.split(';');
+                const [minLng, minLat] = minPart.split(',').map(Number);
+                const [maxLng, maxLat] = maxPart.split(',').map(Number);
+                
+                // 计算中心点
+                const centerLng = (minLng + maxLng) / 2;
+                const centerLat = (minLat + maxLat) / 2;
+                
+                // 计算zoom级别（基于矩形大小）
+                const lngDiff = maxLng - minLng;
+                const latDiff = maxLat - minLat;
+                const maxDiff = Math.max(lngDiff, latDiff);
+                let zoom = 10;
+                
+                if (maxDiff > 2) zoom = 6;
+                else if (maxDiff > 1) zoom = 7;
+                else if (maxDiff > 0.5) zoom = 8;
+                else if (maxDiff > 0.2) zoom = 9;
+                else if (maxDiff > 0.1) zoom = 10;
+                else if (maxDiff > 0.05) zoom = 11;
+                else if (maxDiff > 0.02) zoom = 12;
+                else if (maxDiff > 0.01) zoom = 13;
+                else zoom = 14;
+                
+                // 构建矩形路径（4个点）
+                const path = `${minLng},${minLat};${maxLng},${minLat};${maxLng},${maxLat};${minLng},${maxLat};${minLng},${minLat}`;
+                
+                // 构建静态地图URL
+                const mapUrl = `https://restapi.amap.com/v3/staticmap?` +
+                    `location=${centerLng},${centerLat}&` +
+                    `zoom=${zoom}&` +
+                    `size=600*400&` +
+                    `paths=2,0xff0000,1,0xff0000,0.3:${path}&` +
+                    `key=${AMAP_KEY}`;
+                
+                mapImage.src = mapUrl;
+                mapContainer.style.display = 'block';
+                
+                // 加载失败处理
+                mapImage.onerror = function() {
+                    mapContainer.style.display = 'none';
+                };
+                
+            } catch (error) {
+                console.error('加载地图失败:', error);
+                mapContainer.style.display = 'none';
             }
         }
 
