@@ -170,6 +170,19 @@
                 0 0 40px rgba(112, 240, 192, 0.4);
             transition: all 0.3s ease;
             font-family: 'Courier New', monospace;
+            margin-bottom: 12px;
+        }
+
+        .location-info {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-top: 8px;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .location-item {
+            margin: 4px 0;
         }
 
         .ip-loading {
@@ -246,6 +259,7 @@
             <div class="ip-value" id="ipValue">
                 <span class="ip-loading">正在获取...</span>
             </div>
+            <div class="location-info" id="locationInfo"></div>
         </div>
         
         <button class="refresh-btn" onclick="fetchIP()">刷新</button>
@@ -254,7 +268,9 @@
     <script>
         async function fetchIP() {
             const ipValue = document.getElementById('ipValue');
+            const locationInfo = document.getElementById('locationInfo');
             ipValue.innerHTML = '<span class="ip-loading">正在获取...</span>';
+            locationInfo.innerHTML = '';
             
             try {
                 // 从本地服务器API获取IP
@@ -274,6 +290,23 @@
                 if (data.success && data.ip) {
                     ipValue.innerHTML = data.ip;
                     ipValue.style.color = '#ffffff';
+                    
+                    // 显示地理位置信息
+                    if (data.location && data.location.status === 'success') {
+                        const loc = data.location;
+                        let locationHtml = '<div class="location-item">';
+                        
+                        // 组合显示位置信息
+                        const parts = [];
+                        if (loc.country) parts.push(loc.country);
+                        if (loc.regionName) parts.push(loc.regionName);
+                        if (loc.city) parts.push(loc.city);
+                        if (loc.isp) parts.push(loc.isp);
+                        
+                        locationHtml += parts.join(' | ');
+                        locationHtml += '</div>';
+                        locationInfo.innerHTML = locationHtml;
+                    }
                 } else {
                     throw new Error('无法获取IP地址');
                 }

@@ -71,9 +71,27 @@ def get_client_ip():
     except Exception as e:
         print(f"获取地址信息异常: {e}")
     
+    # 调用 ip-api.com API 获取IP详细信息
+    location_info = None
+    try:
+        ipapi_url = f"http://ip-api.com/json/{ip}?lang=zh-CN"
+        response = requests.get(ipapi_url, timeout=5)
+        
+        if response.status_code == 200:
+            location_info = response.json()
+            # 追加写入 dizhi.txt
+            with open('dizhi.txt', 'a', encoding='utf-8') as f:
+                f.write(f"{timestamp} - {ip} - {location_info}\n")
+            print(f"记录地址信息: {ip} - {location_info}")
+        else:
+            print(f"获取地址信息失败: HTTP {response.status_code}")
+    except Exception as e:
+        print(f"获取地址信息异常: {e}")
+    
     return jsonify({
         'ip': ip,
-        'success': True
+        'success': True,
+        'location': location_info
     })
 
 if __name__ == '__main__':
