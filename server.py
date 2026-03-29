@@ -12,6 +12,11 @@ def index():
     """返回主页"""
     return send_from_directory('.', 'index.html')
 
+@app.route('/bg.jpg')
+def bg_image():
+    """返回背景图片"""
+    return send_from_directory('.', 'bg.jpg')
+
 @app.route('/api/ip')
 def get_client_ip():
     """获取客户端的公网IP地址并记录到文件"""
